@@ -1,0 +1,13 @@
+# Allowlist for voice_commands safe mode
+#
+# When VC_SAFE_MODE=1, only commands matching one of these patterns will be executed.
+# One pattern per line. Lines starting with # are comments.
+#
+# Default allowlist is intentionally conservative.
+# Customize by adding your allowed command phrases here.
+#
+# Examples:
+# abrir navegador
+# abrir arquivos
+# volume (subir|bajar)
+
