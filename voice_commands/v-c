@@ -13,6 +13,11 @@ if echo "$@" | grep -x -q -- "-r\|-run"; then
 /bin/bash ~/.voice_commands/play_stop.sh
 exit
 fi
+if echo "$@" | grep -q -- "-d\|--debug\|-debug"; then
+export VC_DEBUG=1
+/bin/bash ~/.voice_commands/play_stop.sh "$language"
+exit
+fi
 if echo "$@" | grep -q -- "-vol\|-volume"; then
 microphe_port=$(sed -n '1p' ~/.voice_commands/Scripts/microphone_port | cut -d '=' -f2)
 input=$(sed -n '1p' ~/.voice_commands/Scripts/input_port | cut -d '=' -f2)
@@ -90,6 +95,11 @@ if echo "$1" | grep -x -q -- "-r\|-run"; then
 /bin/bash ~/.voice_commands/play_stop.sh "$language"
 exit
 fi
+if echo "$@" | grep -q -- "-d\|--debug\|-debug"; then
+export VC_DEBUG=1
+/bin/bash ~/.voice_commands/play_stop.sh "$language"
+exit
+fi
 if echo "$1" | grep -x -q -- "-t\|-try"; then
 commands=$(echo "$@" | sed 's/-try //g;s/-t //g;s/  / /g;s/-lang '"$language"'//g;s/-l '"$language"'//g;s/-lang='"$language"'//g;s/-l='"$language"'//g' | sed 's/^[ ]*//')
 CMD_RETRY=$(sed -n '111p' ~/.voice_commands/"v-c LANGS"/commands-"$language" | cut -d "=" -f 2)
@@ -162,6 +172,7 @@ Versión 1.0.2-5
 	v-c , command line options
 
 v-c -r		Correr
+v-c -d --debug	Modo depuração/simulação: imprime o texto reconhecido e se a palavra de ativação foi detectada, sem executar comandos.
 v-c -l -lang	Para seleccionar otro, de 67 idiomas, en los comandos:
 		 ( « -run », « -try », « -modify », « -update » and « -h » ).
 v-c -t -try	Para tratar cualquier comando. « v-c -try "'"'"para las llamadas a métodos"'"'" »

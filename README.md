@@ -23,6 +23,8 @@ voice-commands
 
 v-c -r		Correr
 
+v-c -d --debug	Modo depuración/simulación: imprime el texto reconocido y si la palabra de activación coincide, sin ejecutar ningún comando.
+
 v-c -l -lang	Para seleccionar otro, de 67 idiomas, en los comandos:
 		 ( « -run », « -try », « -modify », « -update » and « -h » ).
 
@@ -80,6 +82,83 @@ xdotool gnome-nettool gawk curl wget cheese audacious sox flac pulseaudio alsa-u
 
 Programas que usa y ya están en la distribución:
 rhythmbox nautilus gcalctool gedit eog libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-math
+
+------------------------------------------------------------
+
+## 🇧🇷 Palavra de ativação "Hey Zorin" (Português)
+
+Este programa utiliza uma **palavra de ativação (wake word)** para aumentar a segurança e evitar execuções acidentais de comandos.
+
+### Como funciona
+
+O reconhecimento de voz opera em **duas etapas**:
+
+1. **Etapa 1 – Palavra de ativação:** execute `v-c` (ou `play_stop.sh`), fale **"Hey Zorin"** e aguarde a confirmação na tela.
+2. **Etapa 2 – Comando real:** após a ativação, o programa grava novamente e interpreta o que você falar como um comando de voz.
+
+Se a palavra de ativação **não** for detectada, o programa encerra sem executar nada.
+
+### Exemplos de uso
+
+```bash
+# Iniciar normalmente (fluxo com palavra de ativação)
+v-c
+
+# Iniciar com idioma português
+v-c -l pt
+
+# Modo depuração (mostra o texto reconhecido e se a palavra de ativação foi detectada, sem executar comandos)
+v-c --debug
+# ou
+v-c -d
+
+# Modo depuração com idioma português
+v-c -d -l pt
+```
+
+### Configurar a palavra de ativação
+
+A palavra de ativação padrão é **"Hey Zorin"**. Você pode alterá-la de duas formas:
+
+**Via variável de ambiente (temporário):**
+```bash
+WAKE_WORD="Ei Computador" v-c
+```
+
+**Via arquivo de configuração (permanente):**
+```bash
+echo "Ei Computador" > ~/.voice_commands/Scripts/wake_word
+```
+
+### Modo depuração / simulação
+
+O modo depuração imprime o texto reconhecido e indica se a palavra de ativação foi detectada, **sem executar nenhum comando**. É útil para testar o reconhecimento de voz e calibrar o microfone.
+
+```bash
+v-c --debug
+```
+
+Saída de exemplo:
+```
+[DEBUG] Texto reconhecido: 'hey zorin'
+[DEBUG] Palavra de ativação 'Hey Zorin': DETECTADA
+```
+
+**Via variável de ambiente:**
+```bash
+VC_DEBUG=1 v-c
+```
+
+**Via arquivo de configuração (permanente):**
+```bash
+echo "1" > ~/.voice_commands/Scripts/vc_debug
+```
+
+### Operações administrativas
+
+Operações que requerem privilégios de administrador continuam solicitando a **senha normalmente via `sudo`**. O programa não armazena, automatiza nem contorna a solicitação de senha.
+
+------------------------------------------------------------
 
 ##### ACCIONES DISPONIBLES #####
 
