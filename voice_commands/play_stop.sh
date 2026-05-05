@@ -108,13 +108,13 @@ else
     touch /tmp/vc_wake_word_armed
     rm -f /tmp/voice_"$PID".flac /tmp/result
     killall notify-osd 2>/dev/null
-    notify-send "🎤 ${WAKE_WORD} ativado!" "Aguardando comando de voz..."
-    sh ~/.voice_commands/play_stop.sh "$lang"
+    notify-send "🎤 ${WAKE_WORD} activado!" "Diga su comando de voz..."
+    /bin/bash ~/.voice_commands/play_stop.sh "$lang"
     exit 0
   else
     rm -f /tmp/voice_"$PID".flac /tmp/result
     killall notify-osd 2>/dev/null
-    notify-send "Voz não reconhecida" "Diga '${WAKE_WORD}' para iniciar os comandos"
+    notify-send "Palabra de activación no detectada" "Diga '${WAKE_WORD}' para iniciar"
     exit 0
   fi
 fi
